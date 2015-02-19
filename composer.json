@@ -1,0 +1,35 @@
+{
+    "name": "glicer/simply-html",
+    "type": "library",
+    "description": "Simplify add, delete, modify, get nodes in html files by using css selector",
+    "keywords": ["css","selector","html","xml"],
+    "homepage": "https://github.com/emmanuelroecker/php-simply-html",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Emmanuel ROECKER",
+            "homepage": "http://www.glicer.com"
+        },
+        {
+            "name": "Rym BOUCHAGOUR",
+            "homepage":"http://www.glicer.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/css-selector": "~2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GlHtml\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GlHtml\\Tests\\": "tests/"
+        }
+    }
+}
