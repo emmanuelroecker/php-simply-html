@@ -8,11 +8,11 @@
     "authors": [
         {
             "name": "Emmanuel ROECKER",
-            "homepage": "http://www.glicer.com"
+            "homepage": "http://www.glicer.com/solver"
         },
         {
             "name": "Rym BOUCHAGOUR",
-            "homepage":"http://www.glicer.com"
+            "homepage":"http://www.glicer.com/solver"
         }
     ],
     "require": {

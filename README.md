@@ -25,3 +25,6 @@ After installing, you need to require Composer's autoloader:
 require 'vendor/autoload.php';
 ```
 
+## Contact
+
+More information : [Solver](http://www.glicer.com/solver/)

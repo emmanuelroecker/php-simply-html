@@ -10,7 +10,7 @@
  * @author    Rym BOUCHAGOUR
  * @copyright 2015 GLICER
  * @license   MIT
- * @link      http://www.glicer.com
+ * @link      http://www.glicer.com/solver
  *
  * Created : 19/02/15
  * File : GlHtmlNodeTest.php
