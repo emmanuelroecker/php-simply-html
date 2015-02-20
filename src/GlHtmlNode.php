@@ -149,4 +149,30 @@ class GlHtmlNode
 
         return $innerHTML;
     }
+
+    /**
+     * extract h tag from html
+     *
+     * @param \DOMNodeList $nodeList
+     * @param callable     $fct
+     */
+    private function recursiveCallChild(\DOMNodeList $nodeList, callable $fct)
+    {
+        /**
+         * @var \DOMNode $domNode
+         */
+        foreach ($nodeList as $domNode) {
+            $fct(new GlHtmlNode($domNode));
+            if ($domNode->hasChildNodes()) {
+                $this->recursiveCallChild($domNode->childNodes, $fct);
+            }
+        }
+    }
+
+    /**
+     * @param callable $fct
+     */
+    public function callChild(callable $fct) {
+        $this->recursiveCallChild($this->node->childNodes, $fct);
+    }
 }

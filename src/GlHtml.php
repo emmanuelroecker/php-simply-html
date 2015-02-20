@@ -101,4 +101,25 @@ class GlHtml
     {
         return $this->dom->saveHTML();
     }
+
+    /**
+     * @return GlHtmlSummary[]
+     */
+    public function getSummary()
+    {
+        $body = $this->get("body")[0];
+
+        $summary  = [];
+        $callback = function (GlHtmlNode $childNode) use (&$summary) {
+            $nodeName = strtolower($childNode->getName());
+
+            if (preg_match('/^h(\d+)$/', $nodeName, $matches)) {
+                $summary[] = new GlHtmlSummary($childNode, $matches[1]);
+            }
+        };
+
+        $body->callChild($callback);
+
+        return $summary;
+    }
 }
