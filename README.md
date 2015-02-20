@@ -27,4 +27,6 @@ require 'vendor/autoload.php';
 
 ## Contact
 
-More information : [Solver](http://www.glicer.com/solver/)
+Authors : Emmanuel ROECKER & Rym BOUCHAGOUR
+
+Homepage : [http://www.glicer.com/solver/](http://www.glicer.com/solver/)
