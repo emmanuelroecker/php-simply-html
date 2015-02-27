@@ -71,4 +71,48 @@ EOD;
         $this->assertEquals("subtitle1-2-1", $summary[2]->getNode()->getText());
         $this->assertEquals(1,$summary[3]->getLevel());
     }
+
+    public function testGetText()
+    {
+        $html = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div>
+<p>test</p><h1>title1</h1><p>je cherche<br>une réponse<span> 1</span></p>
+            <h2>subtitle1-1</h2>
+                <h3>subtitle1-2-1</h3>
+        <h1>title2</h1><div><a href="http://www.glicer.com">lien direct</a></div>
+        <h8>salut les copains</h8><div>c'est top</div>
+    </div>
+</body>
+</html>
+EOD;
+        $dom  = new GlHtml($html);
+        $text = $dom->getRenderedText();
+
+        $expected = <<<EOD
+test
+
+title1
+
+je cherche
+une réponse 1
+
+subtitle1-1
+
+subtitle1-2-1
+
+title2
+
+lien direct
+
+salut les copains
+
+c'est top
+EOD;
+        $this->assertEquals($expected,$text);
+    }
 } 

@@ -38,6 +38,7 @@ class GlHtml
      */
     public function __construct($html)
     {
+        $html = static::fixNewlines($html);
         $this->dom = new \DOMDocument();
 
         $libxml_previous_state = libxml_use_internal_errors(true); //disable warnings
@@ -46,6 +47,20 @@ class GlHtml
         libxml_use_internal_errors($libxml_previous_state);
     }
 
+    /**
+     * Unify newlines
+     *
+     * @param string $text
+     *
+     * @return string the fixed text
+     */
+    static function fixNewlines($text)
+    {
+        $text = str_replace("\r\n", "\n", $text);
+        $text = str_replace("\r", "\n", $text);
+
+        return $text;
+    }
 
     /**
      * return one dom element with $selector css filter
@@ -102,6 +117,17 @@ class GlHtml
         return $this->dom->saveHTML();
     }
 
+    public function getText()
+    {
+        $body = $this->get("body")[0];
+        return $body->getText();
+    }
+
+    public function getRenderedText() {
+        $body = $this->get("body")[0];
+        return $body->getRenderedText();
+    }
+
     /**
      * @return GlHtmlSummary[]
      */
@@ -111,7 +137,7 @@ class GlHtml
 
         $summary  = [];
         $callback = function (GlHtmlNode $childNode) use (&$summary) {
-            $nodeName = strtolower($childNode->getName());
+            $nodeName = $childNode->getName();
 
             if (preg_match('/^h(\d+)$/', $nodeName, $matches)) {
                 $summary[] = new GlHtmlSummary($childNode, $matches[1]);

@@ -104,7 +104,7 @@ class GlHtmlNode
      */
     public function getName()
     {
-        return $this->node->nodeName;
+        return strtolower($this->node->nodeName);
     }
 
     /**
@@ -126,6 +126,18 @@ class GlHtmlNode
     function getText()
     {
         return $this->node->nodeValue;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRenderedText()
+    {
+        $output = static::iterateOverNode($this->node);
+        $output = preg_replace("/[ \t]*\n[ \t]*/im", "\n", $output);
+        $output = trim($output);
+
+        return $output;
     }
 
 
@@ -172,7 +184,124 @@ class GlHtmlNode
     /**
      * @param callable $fct
      */
-    public function callChild(callable $fct) {
+    public function callChild(callable $fct)
+    {
         $this->recursiveCallChild($this->node->childNodes, $fct);
+    }
+
+    /**
+     * @param \DOMNode $node
+     *
+     * @return null|string
+     */
+    private static function nextChildName(\DOMNode $node)
+    {
+        $nextNode = $node->nextSibling;
+        while ($nextNode != null) {
+            if ($nextNode instanceof \DOMElement) {
+                break;
+            }
+            $nextNode = $nextNode->nextSibling;
+        }
+        $nextName = null;
+        if ($nextNode instanceof \DOMElement && $nextNode != null) {
+            $nextName = strtolower($nextNode->nodeName);
+        }
+
+        return $nextName;
+    }
+
+    private static function iterateOverNode(\DOMNode $node)
+    {
+        if ($node instanceof \DOMText) {
+            return preg_replace("/[\\t\\n\\f\\r ]+/im", " ", $node->wholeText);
+        }
+        if ($node instanceof \DOMDocumentType) {
+            return "";
+        }
+
+        $name = strtolower($node->nodeName);
+        if (preg_match('/^h(\d+)$/', $name)) {
+            $name = "hx";
+        }
+
+        $nextName = static::nextChildName($node);
+        if (preg_match('/^h(\d+)$/', $nextName)) {
+            $nextName = "hx";
+        }
+
+        switch ($name) {
+            case "hr":
+                return "\n";
+
+            case "style":
+            case "head":
+            case "title":
+            case "meta":
+            case "script":
+                return "";
+
+            case "hx":
+                $output = "\n";
+                break;
+
+            case "td":
+            case "th":
+                $output = "\t";
+                break;
+
+            case "tr":
+            case "p":
+            case "div":
+                $output = "\n";
+                break;
+
+            default:
+                $output = "";
+                break;
+        }
+
+        $childs = $node->childNodes;
+        foreach ($childs as $child) {
+            $output .= static::iterateOverNode($child);
+        }
+
+        switch ($name) {
+            case "style":
+            case "head":
+            case "title":
+            case "meta":
+            case "script":
+                return "";
+
+            case "hx":
+                $output .= "\n";
+                break;
+
+            case "p":
+            case "br":
+                if ($nextName != "div") {
+                    $output .= "\n";
+                }
+                break;
+
+            case "div":
+                if (($nextName != null) && ($nextName != "div")) {
+                    $output .= "\n";
+                }
+                break;
+
+            case "a":
+                switch ($nextName) {
+                    case "hx":
+                        $output .= "\n";
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+
+        return $output;
     }
 }
