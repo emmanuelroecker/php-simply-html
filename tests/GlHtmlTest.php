@@ -47,7 +47,7 @@ EOD;
 
     public function testRecursiveHtml()
     {
-        $html = <<<EOD
+        $html    = <<<EOD
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,12 +64,12 @@ EOD;
 </body>
 </html>
 EOD;
-        $dom  = new GlHtml($html);
+        $dom     = new GlHtml($html);
         $summary = $dom->getSummary();
 
-        $this->assertEquals("title1",$summary[0]->getNode()->getText());
+        $this->assertEquals("title1", $summary[0]->getNode()->getText());
         $this->assertEquals("subtitle1-2-1", $summary[2]->getNode()->getText());
-        $this->assertEquals(1,$summary[3]->getLevel());
+        $this->assertEquals(1, $summary[3]->getLevel());
     }
 
     public function testGetSentences()
@@ -78,6 +78,8 @@ EOD;
 <!DOCTYPE html>
 <html>
 <head>
+    <title>test de titre</title>
+    <meta name="description" content="exemple de description">
 </head>
 <body>
 <noscript class="noscript">
@@ -105,12 +107,13 @@ EOD;
 </html>
 EOD;
 
-        $dom  = new GlHtml($html);
+        $dom       = new GlHtml($html);
         $sentences = $dom->getSentences();
 
-        print_r($sentences);
-
-        /*
+        $expected[] = "test de titre";
+        $expected[] = "exemple de description";
+        $expected[] = "JavaScript désactivé !";
+        $expected[] = "Ce site nécessite l'activation du JavaScript, veuillez l'activer dans votre navigateur Internet.";
         $expected[] = "test";
         $expected[] = "title1";
         $expected[] = "je cherche une réponse 1";
@@ -119,12 +122,11 @@ EOD;
         $expected[] = "dans un text";
         $expected[] = "encore un";
         $expected[] = "encore deux";
-        $expected[] = "dans un text encore un encore deux";
         $expected[] = "title2";
         $expected[] = "lien direct";
         $expected[] = "salut les copains";
+        $expected[] = "c'est top";
 
-        $this->assertEquals($expected,$sentences);
-        */
+        $this->assertEquals($expected, $sentences);
     }
 } 

@@ -38,7 +38,7 @@ class GlHtml
      */
     public function __construct($html)
     {
-        $html = static::fixNewlines($html);
+        $html      = static::fixNewlines($html);
         $this->dom = new \DOMDocument();
 
         $libxml_previous_state = libxml_use_internal_errors(true); //disable warnings
@@ -120,12 +120,32 @@ class GlHtml
     public function getText()
     {
         $body = $this->get("body")[0];
+
         return $body->getText();
     }
 
-    public function getSentences() {
-        $body = $this->get("body")[0];
-        return $body->getSentences();
+    public function getSentences()
+    {
+        $body      = $this->get("body")[0];
+        $sentences = $body->getSentences();
+
+        $description = $this->get('meta[name="description"]')[0];
+        if (isset($description)) {
+            $description = trim($description->getAttribute("content"));
+            if (strlen($description) > 0) {
+                array_unshift($sentences, $description);
+            }
+        }
+
+        $title = $this->get('title')[0];
+        if (isset($title)) {
+            $title = trim($title->getText());
+            if (strlen($title) > 0) {
+                array_unshift($sentences, $title);
+            }
+        }
+
+        return $sentences;
     }
 
     /**
