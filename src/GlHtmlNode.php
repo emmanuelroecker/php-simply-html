@@ -247,7 +247,8 @@ class GlHtmlNode
             case "title":
             case "meta":
             case "script":
-                return "";
+            case "pre":
+                return 0;
 
             case "p":
             case "hx":

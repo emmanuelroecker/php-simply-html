@@ -129,4 +129,56 @@ EOD;
 
         $this->assertEquals($expected, $sentences);
     }
+
+    public function testGetSentences2()
+    {
+        $html = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div id="body_container" class="container">
+        <div class="row">
+            <div class="list-group">
+                <a class="list-group-item" href="/solver/article/creer-carte-interactive.html">
+                    <h1 class="list-group-item-heading">Créer, héberger et personnaliser une carte interactive</h1>
+                    <p>Comment concevoir une carte géographique interactive pour un fonctionnement en ligne ou hors ligne ?</p>
+                    <div class="date">26 février 2015</div>
+                </a>
+                <a class="list-group-item" href="/solver/article/utiliser-piwik-en-temps-differe.html">
+                    <h1 class="list-group-item-heading">Utilisation de piwik en temps différé</h1>
+                    <p>Comment analyser le trafic d'un site internet sans le ralentir ?</p>
+                    <div class="date">17 février 2015</div>
+                </a>
+            </div>
+        </div>
+            <div class="highlight">
+                <pre>
+                    <span class="go">    C:\Users\GLICER\AppData\Roaming\npm\grunt -&gt; C:\Users\GLICER\AppData\Roaming\npm\node_modules\grunt-cli\bin\grunt</span>
+                    <span class="go">    grunt-cli@0.1.13 C:\Users\GLICER\AppData\Roaming\npm\node_modules\grunt-cli</span>
+                    <span class="go">    ├── resolve@0.3.1</span>
+                    <span class="go">    ├── nopt@1.0.10 (abbrev@1.0.5)</span>
+                    <span class="go">    └── findup-sync@0.1.3 (lodash@2.4.1, glob@3.2.11)</span>
+                </pre>
+            </div>
+        </div>
+</body>
+</html>
+EOD;
+
+        $dom       = new GlHtml($html);
+        $sentences = $dom->getSentences();
+
+        //print_r($sentences);
+
+        $expected[] = "Créer, héberger et personnaliser une carte interactive";
+        $expected[] = "Comment concevoir une carte géographique interactive pour un fonctionnement en ligne ou hors ligne ?";
+        $expected[] = "26 février 2015";
+        $expected[] = "Utilisation de piwik en temps différé";
+        $expected[] = "Comment analyser le trafic d'un site internet sans le ralentir ?";
+        $expected[] = "17 février 2015";
+
+        $this->assertEquals($expected, $sentences);
+    }
 } 

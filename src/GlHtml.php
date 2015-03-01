@@ -126,20 +126,24 @@ class GlHtml
 
     public function getSentences()
     {
-        $body      = $this->get("body")[0];
-        $sentences = $body->getSentences();
+        $sentences = [];
 
-        $description = $this->get('meta[name="description"]')[0];
-        if (isset($description)) {
-            $description = trim($description->getAttribute("content"));
+        $body = $this->get("body");
+        if (count($body) > 0) {
+            $sentences = $body[0]->getSentences();
+        }
+
+        $description = $this->get('meta[name="description"]');
+        if (count($description) > 0) {
+            $description = trim($description[0]->getAttribute("content"));
             if (strlen($description) > 0) {
                 array_unshift($sentences, $description);
             }
         }
 
-        $title = $this->get('title')[0];
-        if (isset($title)) {
-            $title = trim($title->getText());
+        $title = $this->get('title');
+        if (count($title) > 0) {
+            $title = trim($title[0]->getText());
             if (strlen($title) > 0) {
                 array_unshift($sentences, $title);
             }
