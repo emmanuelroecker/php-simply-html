@@ -135,7 +135,14 @@ class GlHtmlNode
     public function getSentences()
     {
         $sentences = [];
-        static::iterateSentencesOverNode($this->node,$sentences);
+        $sentence  = "";
+        static::iterateSentencesOverNode($this->node, $sentence, $sentences);
+
+        $sentence = trim($sentence);
+        if (strlen($sentence) > 0) {
+            $sentences[] = $sentence;
+        }
+
         return $sentences;
     }
 
@@ -210,29 +217,31 @@ class GlHtmlNode
         return $nextName;
     }
 
-    private static function iterateSentencesOverNode(\DOMNode $node, array &$sentences)
+    /**
+     * @param \DOMNode $node
+     * @param string   $sentence
+     * @param array    $sentences
+     *
+     * @return int
+     */
+    private static function iterateSentencesOverNode(\DOMNode $node, &$sentence, array &$sentences)
     {
         if ($node instanceof \DOMText) {
-            return preg_replace("/[\\t\\n\\f\\r ]+/im", " ", $node->wholeText);
+            $sentence .= preg_replace("/[\\t\\n\\f\\r ]+/im", " ", $node->wholeText);
+
+            return 0;
         }
         if ($node instanceof \DOMDocumentType) {
-            return "";
+            return 0;
         }
 
-        $name     = strtolower($node->nodeName);
+        $name = strtolower($node->nodeName);
         if (preg_match('/^h(\d+)$/', $name)) {
             $name = "hx";
         }
 
-        $nextName = static::nextChildName($node);
-        if (preg_match('/^h(\d+)$/', $nextName)) {
-            $nextName = "hx";
-        }
-
         switch ($name) {
             case "hr":
-                return "";
-
             case "style":
             case "head":
             case "title":
@@ -240,17 +249,25 @@ class GlHtmlNode
             case "script":
                 return "";
 
+            case "p":
+            case "hx":
+                $sentence = trim($sentence);
+                if (strlen($sentence) > 0) {
+                    $sentences[] = $sentence;
+                }
+                $sentence = "";
+                break;
+
             case "br":
-                $output = " ";
+                $sentence .= " ";
                 break;
             default:
-                $output = "";
                 break;
         }
 
         $childs = $node->childNodes;
         foreach ($childs as $child) {
-            $output .= static::iterateSentencesOverNode($child, $sentences);
+            static::iterateSentencesOverNode($child, $sentence, $sentences);
         }
 
         switch ($name) {
@@ -261,36 +278,18 @@ class GlHtmlNode
             case "script":
                 return "";
 
-            case "hx":
-                $sentences[] = trim($output);
-                break;
-
             case "p":
-                if ($nextName != "div") {
-                    if ($nextName == 'p') {
-                        $output .= " ";
-                    }
-                    $sentences[] = trim($output);
+            case "hx":
+                $sentence = trim($sentence);
+                if (strlen($sentence) > 0) {
+                    $sentences[] = $sentence;
                 }
-                break;
-
-            case "div":
-                if (($nextName != null) && ($nextName != "div")) {
-                    $sentences[] = trim($output);
-                }
-                break;
-
-            case "a":
-                switch ($nextName) {
-                    case "hx":
-                        $sentences[] = trim($output);
-                        break;
-                }
+                $sentence = "";
                 break;
             default:
                 break;
         }
 
-        return $output;
+        return 0;
     }
 }
