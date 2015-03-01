@@ -72,7 +72,7 @@ EOD;
         $this->assertEquals(1,$summary[3]->getLevel());
     }
 
-    public function testGetText()
+    public function testGetSentences()
     {
         $html = <<<EOD
 <!DOCTYPE html>
@@ -84,35 +84,29 @@ EOD;
 <p>test</p><h1>title1</h1><p>je cherche<br>une réponse<span> 1</span></p>
             <h2>subtitle1-1</h2>
                 <h3>subtitle1-2-1</h3>
+                <div><p>dans un text</p><p>encore un</p><p>encore deux</p></div>
         <h1>title2</h1><div><a href="http://www.glicer.com">lien direct</a></div>
-        <h8>salut les copains</h8><div>c'est top</div>
+        <h8>salut les <a href="toto">copains</a></h8><div>c'est top</div>
     </div>
 </body>
 </html>
 EOD;
         $dom  = new GlHtml($html);
-        $text = $dom->getRenderedText();
+        $sentences = $dom->getSentences();
 
-        $expected = <<<EOD
-test
+        $expected[] = "test";
+        $expected[] = "title1";
+        $expected[] = "je cherche une réponse 1";
+        $expected[] = "subtitle1-1";
+        $expected[] = "subtitle1-2-1";
+        $expected[] = "dans un text";
+        $expected[] = "encore un";
+        $expected[] = "encore deux";
+        $expected[] = "dans un text encore un encore deux";
+        $expected[] = "title2";
+        $expected[] = "lien direct";
+        $expected[] = "salut les copains";
 
-title1
-
-je cherche
-une réponse 1
-
-subtitle1-1
-
-subtitle1-2-1
-
-title2
-
-lien direct
-
-salut les copains
-
-c'est top
-EOD;
-        $this->assertEquals($expected,$text);
+        $this->assertEquals($expected,$sentences);
     }
 } 

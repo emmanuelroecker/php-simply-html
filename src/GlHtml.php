@@ -123,9 +123,9 @@ class GlHtml
         return $body->getText();
     }
 
-    public function getRenderedText() {
+    public function getSentences() {
         $body = $this->get("body")[0];
-        return $body->getRenderedText();
+        return $body->getSentences();
     }
 
     /**
