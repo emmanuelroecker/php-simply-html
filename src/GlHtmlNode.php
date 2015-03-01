@@ -197,28 +197,6 @@ class GlHtmlNode
 
     /**
      * @param \DOMNode $node
-     *
-     * @return null|string
-     */
-    private static function nextChildName(\DOMNode $node)
-    {
-        $nextNode = $node->nextSibling;
-        while ($nextNode != null) {
-            if ($nextNode instanceof \DOMElement) {
-                break;
-            }
-            $nextNode = $nextNode->nextSibling;
-        }
-        $nextName = null;
-        if ($nextNode instanceof \DOMElement && $nextNode != null) {
-            $nextName = strtolower($nextNode->nodeName);
-        }
-
-        return $nextName;
-    }
-
-    /**
-     * @param \DOMNode $node
      * @param string   $sentence
      * @param array    $sentences
      *
@@ -252,6 +230,9 @@ class GlHtmlNode
 
             case "p":
             case "hx":
+            case "th":
+            case "td":
+            case "li":
                 $sentence = trim($sentence);
                 if (strlen($sentence) > 0) {
                     $sentences[] = $sentence;
@@ -281,12 +262,16 @@ class GlHtmlNode
 
             case "p":
             case "hx":
+            case "th":
+            case "td":
+            case "li":
                 $sentence = trim($sentence);
                 if (strlen($sentence) > 0) {
                     $sentences[] = $sentence;
                 }
                 $sentence = "";
                 break;
+
             default:
                 break;
         }

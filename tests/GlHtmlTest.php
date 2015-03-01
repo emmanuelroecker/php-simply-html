@@ -138,7 +138,35 @@ EOD;
 <head>
 </head>
 <body>
+    <li><a role="menuitem" tabindex="-1" href="#3" target="_self">Serveur de données osm</a>
+                            <ul>
+                                <li><a role="menuitem" tabindex="-1" href="#4" target="_self">Pré-requis</a></li>
+                                <li><a role="menuitem" tabindex="-1" href="#5" target="_self">Créer le serveur</a></li>
+                                <li><a role="menuitem" tabindex="-1" href="#6" target="_self">Installer PostgreSQL</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                         <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Taille originale</th>
+            <th>Taille compressée</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>378 Ko</td>
+            <td>214 Ko</td>
+        </tr>
+        </tbody>
+    </table>
     <div id="body_container" class="container">
+        <p><a href="http://www.w3.org/html/" target="_blank"><em>html</em></a> est un langage informatique qui permet de
+            structurer le contenu des pages web. Il est le fond.</p>
+        <p><a href="http://www.w3.org/Style/CSS/" target="_blank"><em>css</em></a> est un langage informatique qui permet de
+            formater l'affichage des documents <em>html</em>. Il est la forme.</p>
+
         <div class="row">
             <div class="list-group">
                 <a class="list-group-item" href="/solver/article/creer-carte-interactive.html">
@@ -170,8 +198,16 @@ EOD;
         $dom       = new GlHtml($html);
         $sentences = $dom->getSentences();
 
-        //print_r($sentences);
-
+        $expected[] = "Serveur de données osm";
+        $expected[] = "Pré-requis";
+        $expected[] = "Créer le serveur";
+        $expected[] = "Installer PostgreSQL";
+        $expected[] = "Taille originale";
+        $expected[] = "Taille compressée";
+        $expected[] = "378 Ko";
+        $expected[] = "214 Ko";
+        $expected[] = "html est un langage informatique qui permet de structurer le contenu des pages web. Il est le fond.";
+        $expected[] = "css est un langage informatique qui permet de formater l'affichage des documents html. Il est la forme.";
         $expected[] = "Créer, héberger et personnaliser une carte interactive";
         $expected[] = "Comment concevoir une carte géographique interactive pour un fonctionnement en ligne ou hors ligne ?";
         $expected[] = "26 février 2015";
@@ -180,5 +216,6 @@ EOD;
         $expected[] = "17 février 2015";
 
         $this->assertEquals($expected, $sentences);
+
     }
 } 
