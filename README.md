@@ -29,4 +29,4 @@ require 'vendor/autoload.php';
 
 Authors : Emmanuel ROECKER & Rym BOUCHAGOUR
 
-Homepage : [http://www.glicer.com/solver/](http://www.glicer.com/solver/)
+Homepage : [http://dev.glicer.com](http://dev.glicer.com)
