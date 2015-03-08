@@ -233,6 +233,8 @@ class GlHtmlNode
             case "th":
             case "td":
             case "li":
+            case "label":
+            case "button":
                 $sentence = trim($sentence);
                 if (strlen($sentence) > 0) {
                     $sentences[] = $sentence;
@@ -265,6 +267,8 @@ class GlHtmlNode
             case "th":
             case "td":
             case "li":
+            case "label":
+            case "button":
                 $sentence = trim($sentence);
                 if (strlen($sentence) > 0) {
                     $sentences[] = $sentence;

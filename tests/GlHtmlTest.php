@@ -218,4 +218,72 @@ EOD;
         $this->assertEquals($expected, $sentences);
 
     }
+
+    public function testGetSentenceForm()
+    {
+        $html = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close icon-animate" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+            <span id="feedback_modal_label" class="modal-title">Un avis ?</span></div>
+            <div class="modal-body">
+                <form id="feedback_form" role="form" method="post">
+                    <div class="form-group">
+                        <label class="sr-only" for="feedback_form_email">E-mail</label>
+                        <input id="feedback_form_email" name="feedback_form_email" class="form-control" placeholder="E-Mail" required="" type="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="feedback_form_message">Message</label>
+                        <textarea id="feedback_form_message" name="feedback_form_message" class="form-control" rows="5" placeholder="Message" required=""></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-default" type="submit">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close icon-animate" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+                <span id="legal_modal_label" class="modal-title">Au nom de la loi</span>
+            </div>
+            <div class="modal-body">
+                <ul class="list-unstyled">
+                    <li>
+                        <p>Site développé par Emmanuel ROECKER et Rym BOUCHAGOUR.</p>
+                    </li>
+                    <li>
+                        <p>Sauf mention contraire, l'ensemble du contenu de ce site est la propriété exclusive de ses auteurs.</p>
+                    </li>
+                 </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+EOD;
+
+        $dom       = new GlHtml($html);
+        $sentences = $dom->getSentences();
+
+        $expected[] = "×";
+        $expected[] = "Un avis ?";
+        $expected[] = "E-mail";
+        $expected[] = "Message";
+        $expected[] = "Envoyer";
+        $expected[] = "×";
+        $expected[] = "Au nom de la loi";
+        $expected[] = "Site développé par Emmanuel ROECKER et Rym BOUCHAGOUR.";
+        $expected[] = "Sauf mention contraire, l'ensemble du contenu de ce site est la propriété exclusive de ses auteurs.";
+
+        $this->assertEquals($expected, $sentences);
+    }
+
 } 
