@@ -34,6 +34,11 @@ class GlHtml
     private $dom;
 
     /**
+     * @var string
+     */
+    private $html;
+
+    /**
      * @param string $html
      */
     public function __construct($html)
@@ -45,6 +50,8 @@ class GlHtml
         $this->dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
         libxml_clear_errors();
         libxml_use_internal_errors($libxml_previous_state);
+
+        $this->html = $html;
     }
 
     /**
@@ -122,6 +129,80 @@ class GlHtml
         $body = $this->get("body")[0];
 
         return $body->getText();
+    }
+
+    public function getLinks()
+    {
+        $links = [];
+
+        $tagslink = $this->get("link");
+        foreach ($tagslink as $taglink) {
+            $href = $taglink->getAttribute("href");
+            if (isset($href) && (strlen(trim($href)) > 0)) {
+                $links[$href] = $href;
+            }
+        }
+
+        $tagsa = $this->get("a");
+        foreach ($tagsa as $taga) {
+            $href = $taga->getAttribute('href');
+            if (isset($href) && (strlen(trim($href)) > 0)) {
+                $links[$href] = $href;
+            }
+        }
+
+        $tagsscript = $this->get("script");
+        foreach ($tagsscript as $tagscript) {
+            $src = $tagscript->getAttribute('src');
+            if (isset($src) && (strlen(trim($src)) > 0)) {
+                $links[$src] = $src;
+            }
+        }
+
+        $tagsiframe = $this->get("iframe");
+        foreach ($tagsiframe as $tagiframe) {
+            $src = $tagiframe->getAttribute('src');
+            if (isset($src) && (strlen(trim($src)) > 0)) {
+                $links[$src] = $src;
+            }
+        }
+
+        $tagsimg = $this->get("img");
+        foreach ($tagsimg as $tagimg) {
+            $src = $tagimg->getAttribute('src');
+            if (isset($src) && (strlen(trim($src)) > 0)) {
+                $links[$src] = $src;
+            }
+        }
+
+
+        //get all string started with http
+        $regexUrl = '/[">\s]+((http|https|ftp|ftps)\:\/\/(.*?))["<\s]+/';
+        $urls     = null;
+        if (preg_match_all($regexUrl, $this->html, $urls) > 0) {
+            $matches = $urls[1];
+            foreach ($matches as $url) {
+                if (filter_var($url, FILTER_VALIDATE_URL)) {
+                    $links[$url] = $url;
+                }
+            }
+        }
+
+
+        //get all params which can be a url
+        $regexParam = '/["](.*?)["]/';
+        $params     = [];
+        if (preg_match_all($regexParam, $this->html, $params) > 0) {
+            $urls = $params[1];
+            foreach ($urls as $url) {
+                $url = trim($url);
+                if ((strpbrk($url, "/.") !== false) && (strpbrk($url, " ") === false)) {
+                    $links[$url] = $url;
+                }
+            }
+        }
+
+        return $links;
     }
 
     public function getSentences()

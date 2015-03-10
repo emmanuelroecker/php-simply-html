@@ -146,7 +146,6 @@ class GlHtmlNode
         return $sentences;
     }
 
-
     public
     function delete()
     {
