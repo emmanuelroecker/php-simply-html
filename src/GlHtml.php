@@ -131,7 +131,12 @@ class GlHtml
         return $body->getText();
     }
 
-    public function getLinks()
+    /**
+     * @param bool $all if true get url in text and params
+     *
+     * @return array
+     */
+    public function getLinks($all = false)
     {
         $links = [];
 
@@ -175,28 +180,29 @@ class GlHtml
             }
         }
 
-
-        //get all string started with http
-        $regexUrl = '/[">\s]+((http|https|ftp|ftps)\:\/\/(.*?))["<\s]+/';
-        $urls     = null;
-        if (preg_match_all($regexUrl, $this->html, $urls) > 0) {
-            $matches = $urls[1];
-            foreach ($matches as $url) {
-                if (filter_var($url, FILTER_VALIDATE_URL)) {
-                    $links[$url] = $url;
+        if ($all) {
+            //get all string started with http
+            $regexUrl = '/[">\s]+((http|https|ftp|ftps)\:\/\/(.*?))["<\s]+/';
+            $urls     = null;
+            if (preg_match_all($regexUrl, $this->html, $urls) > 0) {
+                $matches = $urls[1];
+                foreach ($matches as $url) {
+                    if (filter_var($url, FILTER_VALIDATE_URL)) {
+                        $links[$url] = $url;
+                    }
                 }
             }
-        }
 
-        //get all params which can be a url
-        $regexParam = '/["](.*?)["]/';
-        $params     = [];
-        if (preg_match_all($regexParam, $this->html, $params) > 0) {
-            $urls = $params[1];
-            foreach ($urls as $url) {
-                $url = trim($url);
-                if ((strpbrk($url, "/.") !== false) && (strpbrk($url, " ") === false)) {
-                    $links[$url] = $url;
+            //get all params which can be a url
+            $regexParam = '/["](.*?)["]/';
+            $params     = [];
+            if (preg_match_all($regexParam, $this->html, $params) > 0) {
+                $urls = $params[1];
+                foreach ($urls as $url) {
+                    $url = trim($url);
+                    if ((strpbrk($url, "/.") !== false) && (strpbrk($url, " ") === false)) {
+                        $links[$url] = $url;
+                    }
                 }
             }
         }

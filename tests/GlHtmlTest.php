@@ -327,7 +327,7 @@ EOD;
 </html>
 EOD;
         $dom   = new GlHtml($html);
-        $links = $dom->getLinks();
+        $links = $dom->getLinks(true);
 
         $expected["/humans.txt"] = "/humans.txt";
         $expected["/img/favicon.ico"] = "/img/favicon.ico";
