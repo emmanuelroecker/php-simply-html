@@ -188,7 +188,6 @@ class GlHtml
             }
         }
 
-
         //get all params which can be a url
         $regexParam = '/["](.*?)["]/';
         $params     = [];
@@ -199,6 +198,13 @@ class GlHtml
                 if ((strpbrk($url, "/.") !== false) && (strpbrk($url, " ") === false)) {
                     $links[$url] = $url;
                 }
+            }
+        }
+
+        foreach ($links as $link) {
+            $url = parse_url($link);
+            if (!((isset($url['host']) && isset($url['scheme'])) || (isset($url['path'])))) {
+                unset($links[$link]);
             }
         }
 

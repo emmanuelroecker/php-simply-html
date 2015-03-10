@@ -297,8 +297,11 @@ EOD;
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
     <test toto="/bonjour"></test>
+    <test2 titi="rien/tortue"><test2>
 </head>
 <body>
+    <li><a role="menuitem" tabindex="-1" href="#4" target="_self">Pré-requis</a></li>
+    <li><a role="menuitem" tabindex="-1" href="#5" target="_self">Créer le serveur</a></li>
     <p><img src="/piwik.php?idsite=4" alt=""></p>
     <div class="container">
         <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
@@ -338,6 +341,7 @@ EOD;
         $expected["http://autretest2"] = "http://autretest2";
         $expected["http://autretest3"] = "http://autretest3";
         $expected["/bonjour"] = "/bonjour";
+        $expected["rien/tortue"] = "rien/tortue";
 
         $this->assertEquals($expected, $links);
     }
