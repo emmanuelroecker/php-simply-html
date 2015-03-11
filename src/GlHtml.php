@@ -180,19 +180,19 @@ class GlHtml
             }
         }
 
-        if ($all) {
-            //get all string started with http
-            $regexUrl = '/[">\s]+((http|https|ftp|ftps)\:\/\/(.*?))["<\s]+/';
-            $urls     = null;
-            if (preg_match_all($regexUrl, $this->html, $urls) > 0) {
-                $matches = $urls[1];
-                foreach ($matches as $url) {
-                    if (filter_var($url, FILTER_VALIDATE_URL)) {
-                        $links[$url] = $url;
-                    }
+        //get all string started with http
+        $regexUrl = '/[">\s]+((http|https|ftp|ftps)\:\/\/(.*?))["<\s]+/';
+        $urls     = null;
+        if (preg_match_all($regexUrl, $this->html, $urls) > 0) {
+            $matches = $urls[1];
+            foreach ($matches as $url) {
+                if (filter_var($url, FILTER_VALIDATE_URL)) {
+                    $links[$url] = $url;
                 }
             }
+        }
 
+        if ($all) {
             //get all params which can be a url
             $regexParam = '/["](.*?)["]/';
             $params     = [];
