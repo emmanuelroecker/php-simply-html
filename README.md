@@ -3,11 +3,13 @@ Add, delete, modify, read html tags by using css selector.
 
 Get all text, links, summary inside html file.
 
+It's working with [PHP DOM Extension](http://php.net/manual/fr/book.dom.php) and [Symfony CssSelector](http://symfony.com/doc/current/components/css_selector.html)
+
 ## Installation
 
 This library can be found on [Packagist](https://packagist.org/packages/glicer/simply-html).
 
-The recommended way to install this is through [composer](http://getcomposer.org).
+The recommended way to install is through [composer](http://getcomposer.org).
 
 Edit your `composer.json` and add:
 
@@ -37,19 +39,19 @@ php composer.phar install
      //read index.html contents
      $html = file_get_contents("index.html");
 
-     $html = new GlHtml($html);
+     $dom = new GlHtml($html);
 
      //delete all style tags inside head
-     $html->delete('head style');
+     $dom->delete('head style');
 
      //prepare a new style tag
      $style = '<link href="solver.css" type="text/css" rel="stylesheet"></link>';
 
      //add the new style tag
-     $html->get("head")[0]->add($style);
+     $dom->get("head")[0]->add($style);
 
      //write result in a new html file
-     file_put_contents("result.html",$html->html());
+     file_put_contents("result.html",$dom->html());
 ```
 
 ## How to get all text inside html ?
@@ -63,10 +65,10 @@ php composer.phar install
      //read index.html contents
      $html = file_get_contents("index.html");
 
-     $html = new GlHtml($html);
+     $dom = new GlHtml($html);
 
      //array of string sentences
-     $sentences = $html->getSentences();
+     $sentences = $dom->getSentences();
 
      print_r($sentences);
 ```
@@ -82,10 +84,10 @@ php composer.phar install
      //read index.html contents
      $html = file_get_contents("index.html");
 
-     $html = new GlHtml($html);
+     $dom = new GlHtml($html);
 
      //array of string url
-     $links = $html->getLinks();
+     $links = $dom->getLinks();
 
      print_r($links);
 ```
@@ -101,10 +103,10 @@ php composer.phar install
      //read index.html contents
      $html = file_get_contents("index.html");
 
-     $html = new GlHtml($html);
+     $dom = new GlHtml($html);
 
      //array of GlHtmlSummary object
-     $summary = $html->getSummary();
+     $summary = $dom->getSummary();
 
      echo $summary[0]->getNode()->getText() . ' ' . $summary[0]->getLevel();
 ```
