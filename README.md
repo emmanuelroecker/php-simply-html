@@ -1,10 +1,9 @@
-php-simply-html
-===============
+# php-simply-html
 Add, delete, modify, read html tags by using css selector.
 
 Get all text, links, summary inside html file.
 
-# Installation
+## Installation
 
 This library can be found on [Packagist](https://packagist.org/packages/glicer/simply-html).
 
@@ -26,7 +25,7 @@ And install dependencies:
 php composer.phar install
 ```
 
-# How to modify html ?
+## How to modify html ?
 
 ```php
      <?php
@@ -53,7 +52,7 @@ php composer.phar install
      file_put_contents("result.html",$html->html());
 ```
 
-# How to get all text inside html ?
+## How to get all text inside html ?
 
 ```php
      // Must point to composer's autoload file.
@@ -72,7 +71,7 @@ php composer.phar install
      print_r($sentences);
 ```
 
-# How to get all links inside html ?
+## How to get all links inside html ?
 
 ```php
      // Must point to composer's autoload file.
@@ -91,7 +90,7 @@ php composer.phar install
      print_r($links);
 ```
 
-# How to extract html headings (h1,h2,...,h6)?
+## How to extract html headings (h1,h2,...,h6)?
 
 ```php
      // Must point to composer's autoload file.
@@ -110,7 +109,7 @@ php composer.phar install
      echo $summary[0]->getNode()->getText() . ' ' . $summary[0]->getLevel();
 ```
 
-# Contact
+## Contact
 
 Authors : Emmanuel ROECKER & Rym BOUCHAGOUR
 
