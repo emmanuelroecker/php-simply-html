@@ -3,7 +3,7 @@ Add, delete, modify, read html tags by using css selector.
 
 Get all text, links, summary inside html file.
 
-It's working with [PHP DOM Extension](http://php.net/manual/fr/book.dom.php) and [Symfony CssSelector](http://symfony.com/doc/current/components/css_selector.html)
+It's working with [PHP DOM Extension](http://php.net/manual/en/book.dom.php) and [Symfony CssSelector](http://symfony.com/doc/current/components/css_selector.html)
 
 ## Installation
 
