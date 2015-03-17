@@ -1,32 +1,117 @@
-# php-simply-html
-Simplify add, delete, modify, get nodes in html files by using css selector
+php-simply-html
+===============
+Add, delete, modify, read html tags by using css selector.
 
-## In progress
+Get all text, links, summary inside html file.
 
-## Installing via Composer
+# Installation
 
-The recommended way to install is through
-[Composer](http://getcomposer.org).
+This library can be found on [Packagist](https://packagist.org/packages/glicer/simply-html).
 
-```bash
-# Install Composer
-curl -sS https://getcomposer.org/installer | php
+The recommended way to install this is through [composer](http://getcomposer.org).
+
+Edit your `composer.json` and add:
+
+```json
+{
+    "require": {
+       "glicer/simply-html": "dev-master"
+    }
+}
 ```
 
-Next, run the Composer command to install the latest stable version :
+And install dependencies:
 
 ```bash
-composer require glicer/simply-html
+php composer.phar install
 ```
 
-After installing, you need to require Composer's autoloader:
+# How to modify html ?
 
 ```php
-require 'vendor/autoload.php';
+     <?php
+     // Must point to composer's autoload file.
+     require 'vendor/autoload.php';
+
+     use GlHtml\GlHtml;
+
+     //read index.html contents
+     $html = file_get_contents("index.html");
+
+     $html = new GlHtml($html);
+
+     //delete all style tags inside head
+     $html->delete('head style');
+
+     //prepare a new style tag
+     $style = '<link href="solver.css" type="text/css" rel="stylesheet"></link>';
+
+     //add the new style tag
+     $html->get("head")[0]->add($style);
+
+     //write result in a new html file
+     file_put_contents("result.html",$html->html());
 ```
 
-## Contact
+# How to get all text inside html ?
+
+```php
+     // Must point to composer's autoload file.
+     require 'vendor/autoload.php';
+
+     use GlHtml\GlHtml;
+
+     //read index.html contents
+     $html = file_get_contents("index.html");
+
+     $html = new GlHtml($html);
+
+     //array of string sentences
+     $sentences = $html->getSentences();
+
+     print_r($sentences);
+```
+
+# How to get all links inside html ?
+
+```php
+     // Must point to composer's autoload file.
+     require 'vendor/autoload.php';
+
+     use GlHtml\GlHtml;
+
+     //read index.html contents
+     $html = file_get_contents("index.html");
+
+     $html = new GlHtml($html);
+
+     //array of string url
+     $links = $html->getLinks();
+
+     print_r($links);
+```
+
+# How to extract html headings (h1,h2,...,h6)?
+
+```php
+     // Must point to composer's autoload file.
+     require 'vendor/autoload.php';
+
+     use GlHtml\GlHtml;
+
+     //read index.html contents
+     $html = file_get_contents("index.html");
+
+     $html = new GlHtml($html);
+
+     //array of GlHtmlSummary object
+     $summary = $html->getSummary();
+
+     echo $summary[0]->getNode()->getText() . ' ' . $summary[0]->getLevel();
+```
+
+# Contact
 
 Authors : Emmanuel ROECKER & Rym BOUCHAGOUR
 
-Homepage : [http://dev.glicer.com](http://dev.glicer.com)
+[Web Development Blog - http://dev.glicer.com](http://dev.glicer.com)
