@@ -57,6 +57,7 @@ php composer.phar install
 ## How to get all text inside html ?
 
 ```php
+     <?php
      // Must point to composer's autoload file.
      require 'vendor/autoload.php';
 
@@ -76,6 +77,7 @@ php composer.phar install
 ## How to get all links inside html ?
 
 ```php
+     <?php
      // Must point to composer's autoload file.
      require 'vendor/autoload.php';
 
@@ -95,6 +97,7 @@ php composer.phar install
 ## How to extract html headings (h1,h2,...,h6)?
 
 ```php
+     <?php
      // Must point to composer's autoload file.
      require 'vendor/autoload.php';
 
