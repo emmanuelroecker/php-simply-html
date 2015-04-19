@@ -114,6 +114,14 @@ php composer.phar install
      echo $summary[0]->getNode()->getText() . ' ' . $summary[0]->getLevel();
 ```
 
+## Running Tests
+
+Launch from command line :
+
+```console
+vendor\bin\phpunit
+```
+
 ## Contact
 
 Authors : Emmanuel ROECKER & Rym BOUCHAGOUR
