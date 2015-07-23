@@ -72,6 +72,31 @@ EOD;
         $this->assertEquals(1, $summary[3]->getLevel());
     }
 
+    public function testDiv()
+    {
+        $html    = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <p>test</p>
+        <h1>title1</h1>
+            <p id="abstract">text 1</p>
+            <h2>subtitle1-1</h2>
+                <h3>subtitle1-2-1</h3>
+        <h1>title2</h1>
+    </div>
+</body>
+</html>
+EOD;
+        $dom     = new GlHtml($html);
+        $abstract = $dom->get("#abstract")[0]->getText();
+
+        $this->assertEquals("text 1", $abstract);
+    }
+
     public function testGetSentences()
     {
         $html = <<<EOD
