@@ -1,4 +1,7 @@
 # php-simply-html
+
+[![Build Status](https://travis-ci.org/emmanuelroecker/php-simply-html.svg?branch=master)](https://travis-ci.org/emmanuelroecker/php-simply-html)
+
 Add, delete, modify, read html tags by using css selector.
 
 Get all text, links, summary inside html file.
