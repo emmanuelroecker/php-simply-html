@@ -1,6 +1,7 @@
 # php-simply-html
 
 [![Build Status](https://travis-ci.org/emmanuelroecker/php-simply-html.svg?branch=master)](https://travis-ci.org/emmanuelroecker/php-simply-html)
+[![Coverage Status](https://coveralls.io/repos/emmanuelroecker/php-simply-html/badge.svg?branch=master&service=github)](https://coveralls.io/github/emmanuelroecker/php-simply-html?branch=master)
 
 Add, delete, modify, read html tags by using css selector.
 
