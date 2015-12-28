@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/emmanuelroecker/php-simply-html.svg?branch=master)](https://travis-ci.org/emmanuelroecker/php-simply-html)
 [![Coverage Status](https://coveralls.io/repos/emmanuelroecker/php-simply-html/badge.svg?branch=master&service=github)](https://coveralls.io/github/emmanuelroecker/php-simply-html?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f2f6d5fe-633a-4318-9136-d2abeaf61419/mini.png)](https://insight.sensiolabs.com/projects/f2f6d5fe-633a-4318-9136-d2abeaf61419)
 
 Add, delete, modify, read html tags by using css selector.
 
