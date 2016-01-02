@@ -132,6 +132,22 @@ class GlHtml
     }
 
     /**
+     * @param string $tagname
+     * @param string $attribute
+     * @param array  $links
+     */
+    private function getLinksByTagAttribute($tagname, $attribute, array &$links)
+    {
+        $tagslink = $this->get($tagname);
+        foreach ($tagslink as $taglink) {
+            $href = $taglink->getAttribute($attribute);
+            if (isset($href) && (strlen(trim($href)) > 0)) {
+                $links[$href] = $href;
+            }
+        }
+    }
+
+    /**
      * @param bool $all if true get url in text and params
      *
      * @return array
@@ -140,45 +156,10 @@ class GlHtml
     {
         $links = [];
 
-        $tagslink = $this->get("link");
-        foreach ($tagslink as $taglink) {
-            $href = $taglink->getAttribute("href");
-            if (isset($href) && (strlen(trim($href)) > 0)) {
-                $links[$href] = $href;
-            }
-        }
-
-        $tagsa = $this->get("a");
-        foreach ($tagsa as $taga) {
-            $href = $taga->getAttribute('href');
-            if (isset($href) && (strlen(trim($href)) > 0)) {
-                $links[$href] = $href;
-            }
-        }
-
-        $tagsscript = $this->get("script");
-        foreach ($tagsscript as $tagscript) {
-            $src = $tagscript->getAttribute('src');
-            if (isset($src) && (strlen(trim($src)) > 0)) {
-                $links[$src] = $src;
-            }
-        }
-
-        $tagsiframe = $this->get("iframe");
-        foreach ($tagsiframe as $tagiframe) {
-            $src = $tagiframe->getAttribute('src');
-            if (isset($src) && (strlen(trim($src)) > 0)) {
-                $links[$src] = $src;
-            }
-        }
-
-        $tagsimg = $this->get("img");
-        foreach ($tagsimg as $tagimg) {
-            $src = $tagimg->getAttribute('src');
-            if (isset($src) && (strlen(trim($src)) > 0)) {
-                $links[$src] = $src;
-            }
-        }
+        $this->getLinksByTagAttribute("link", "href", $links);
+        $this->getLinksByTagAttribute("script", "src", $links);
+        $this->getLinksByTagAttribute("iframe", "src", $links);
+        $this->getLinksByTagAttribute("img", "src", $links);
 
         //get all string started with http
         $regexUrl = '/[">\s]+((http|https|ftp|ftps)\:\/\/(.*?))["<\s]+/';
