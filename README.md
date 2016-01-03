@@ -36,88 +36,88 @@ php composer.phar install
 ## How to modify html ?
 
 ```php
-     <?php
-     // Must point to composer's autoload file.
-     require 'vendor/autoload.php';
+<?php
+// Must point to composer's autoload file.
+require 'vendor/autoload.php';
 
-     use GlHtml\GlHtml;
+use GlHtml\GlHtml;
 
-     //read index.html contents
-     $html = file_get_contents("index.html");
+//read index.html contents
+$html = file_get_contents("index.html");
 
-     $dom = new GlHtml($html);
+$dom = new GlHtml($html);
 
-     //delete all style tags inside head
-     $dom->delete('head style');
+//delete all style tags inside head
+$dom->delete('head style');
 
-     //prepare a new style tag
-     $style = '<link href="solver.css" type="text/css" rel="stylesheet"></link>';
+//prepare a new style tag
+$style = '<link href="solver.css" type="text/css" rel="stylesheet"></link>';
 
-     //add the new style tag
-     $dom->get("head")[0]->add($style);
+//add the new style tag
+$dom->get("head")[0]->add($style);
 
-     //write result in a new html file
-     file_put_contents("result.html",$dom->html());
+//write result in a new html file
+file_put_contents("result.html",$dom->html());
 ```
 
 ## How to get all text inside html ?
 
 ```php
-     <?php
-     // Must point to composer's autoload file.
-     require 'vendor/autoload.php';
+<?php
+// Must point to composer's autoload file.
+require 'vendor/autoload.php';
 
-     use GlHtml\GlHtml;
+use GlHtml\GlHtml;
 
-     //read index.html contents
-     $html = file_get_contents("index.html");
+//read index.html contents
+$html = file_get_contents("index.html");
 
-     $dom = new GlHtml($html);
+$dom = new GlHtml($html);
 
-     //array of string sentences
-     $sentences = $dom->getSentences();
+//array of string sentences
+$sentences = $dom->getSentences();
 
-     print_r($sentences);
+print_r($sentences);
 ```
 
 ## How to get all links inside html ?
 
 ```php
-     <?php
-     // Must point to composer's autoload file.
-     require 'vendor/autoload.php';
+<?php
+// Must point to composer's autoload file.
+require 'vendor/autoload.php';
 
-     use GlHtml\GlHtml;
+use GlHtml\GlHtml;
 
-     //read index.html contents
-     $html = file_get_contents("index.html");
+//read index.html contents
+$html = file_get_contents("index.html");
 
-     $dom = new GlHtml($html);
+$dom = new GlHtml($html);
 
-     //array of string url
-     $links = $dom->getLinks();
+//array of string url
+$links = $dom->getLinks();
 
-     print_r($links);
+print_r($links);
 ```
 
 ## How to extract html headings (h1,h2,...,h6)?
 
 ```php
-     <?php
-     // Must point to composer's autoload file.
-     require 'vendor/autoload.php';
+<?php
+// Must point to composer's autoload file.
+require 'vendor/autoload.php';
 
-     use GlHtml\GlHtml;
+use GlHtml\GlHtml;
 
-     //read index.html contents
-     $html = file_get_contents("index.html");
+//read index.html contents
+$html = file_get_contents("index.html");
 
-     $dom = new GlHtml($html);
+$dom = new GlHtml($html);
 
-     //array of GlHtmlSummary object
-     $summary = $dom->getSummary();
+//array of GlHtmlSummary object
+$summary = $dom->getSummary();
 
-     echo $summary[0]->getNode()->getText() . ' ' . $summary[0]->getLevel();
+echo $summary[0]->getNode()->getText() . ' ' . $summary[0]->getLevel();
 ```
 
 ## Running Tests
