@@ -17,7 +17,7 @@ This library can be found on [Packagist](https://packagist.org/packages/glicer/s
 
 The recommended way to install is through [composer](http://getcomposer.org).
 
-Edit your `composer.json` and add:
+Edit your `composer.json` and add :
 
 ```json
 {
@@ -27,7 +27,7 @@ Edit your `composer.json` and add:
 }
 ```
 
-And install dependencies:
+Install dependencies :
 
 ```bash
 php composer.phar install
@@ -36,7 +36,6 @@ php composer.phar install
 ## How to modify html ?
 
 ```php
-<?php
 // Must point to composer's autoload file.
 require 'vendor/autoload.php';
 
@@ -63,7 +62,6 @@ file_put_contents("result.html",$dom->html());
 ## How to get all text inside html ?
 
 ```php
-<?php
 // Must point to composer's autoload file.
 require 'vendor/autoload.php';
 
@@ -83,7 +81,6 @@ print_r($sentences);
 ## How to get all links inside html ?
 
 ```php
-<?php
 // Must point to composer's autoload file.
 require 'vendor/autoload.php';
 
