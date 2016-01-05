@@ -157,6 +157,7 @@ class GlHtml
         $links = [];
 
         $this->getLinksByTagAttribute("link", "href", $links);
+        $this->getLinksByTagAttribute("a", "href",$links);
         $this->getLinksByTagAttribute("script", "src", $links);
         $this->getLinksByTagAttribute("iframe", "src", $links);
         $this->getLinksByTagAttribute("img", "src", $links);

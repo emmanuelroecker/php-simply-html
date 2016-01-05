@@ -325,6 +325,73 @@ EOD;
     <test2 titi="rien/tortue"><test2>
 </head>
 <body>
+    <a href="/section/probleme-solution/compresser-css-html-js.html"></a>
+    <a href="http://dev.glicer.com/"></a>
+    <p>
+    <p>
+        Un p'tit test dans le texte : http://stop.glicer.com/no-exist.html
+    </p>
+    <li><a role="menuitem" tabindex="-1" href="#4" target="_self">Pré-requis</a></li>
+    <li><a role="menuitem" tabindex="-1" href="#5" target="_self">Créer le serveur</a></li>
+    <p><img src="/piwik.php?idsite=4" alt=""></p>
+    <div class="container">
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+            <div id="links_listgroup" class="list-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a  class="list-group-item list-group-item-link col-lg-12 col-md-12 col-sm-12 col-xs-12home" target="_blank"
+                        href="http://www.abusdecine.com" data-index="0" data-title="Abus de ciné"
+                        data-description="Critiques de films et actualités ciné alimentées par des cinéphiles ...">
+                    <div class="pull-right"><i class="icon-news icon-animate text-danger" role="button"
+                         data-sociallink="https://www.facebook.com/pages/Abus-de-cin%C3%A9/140722385941276"></i>
+                    </div>
+                    <h2 class="list-group-item-heading"><span class="list-group-item-title">Abus de ciné</span></h2>
+                    <div class="item-description"><p>Critiques de films et actualités ciné alimentées par des cinéphiles ...</p>
+                    </div>
+                    <span class="tags">cinéma</span></a>
+            </div>
+        </div>
+     </div>
+     <p>un autres test http://bonjour et rien du tout</p>
+     <p>        http://autretest   </p>
+     <p>        http://autretest2</p>
+     <p>http://autretest3</p>
+</body>
+</html>
+EOD;
+        $dom   = new GlHtml($html);
+        $links = $dom->getLinks();
+
+        $expected["/humans.txt"] = "/humans.txt";
+        $expected["/img/favicon.ico"] = "/img/favicon.ico";
+        $expected["https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"] = "https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js";
+        $expected["https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"] = "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js";
+        $expected["/section/probleme-solution/compresser-css-html-js.html"] = "/section/probleme-solution/compresser-css-html-js.html";
+        $expected["http://dev.glicer.com/"] = "http://dev.glicer.com/";
+        $expected["http://stop.glicer.com/no-exist.html"] = "http://stop.glicer.com/no-exist.html";
+        $expected["/piwik.php?idsite=4"] = "/piwik.php?idsite=4";
+        $expected["http://www.abusdecine.com"] = "http://www.abusdecine.com";
+        $expected["https://www.facebook.com/pages/Abus-de-cin%C3%A9/140722385941276"] = "https://www.facebook.com/pages/Abus-de-cin%C3%A9/140722385941276";
+        $expected["http://bonjour"] = "http://bonjour";
+        $expected["http://autretest"] = "http://autretest";
+        $expected["http://autretest2"] = "http://autretest2";
+        $expected["http://autretest3"] = "http://autretest3";
+
+        $this->assertEquals($expected, $links);
+    }
+
+    public function testLinksAll()
+    {
+        $html  = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="author" href="/humans.txt">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
+    <test toto="/bonjour"></test>
+    <test2 titi="rien/tortue"><test2>
+</head>
+<body>
     <li><a role="menuitem" tabindex="-1" href="#4" target="_self">Pré-requis</a></li>
     <li><a role="menuitem" tabindex="-1" href="#5" target="_self">Créer le serveur</a></li>
     <p><img src="/piwik.php?idsite=4" alt=""></p>
