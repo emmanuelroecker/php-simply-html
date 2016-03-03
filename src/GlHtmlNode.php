@@ -161,7 +161,7 @@ class GlHtmlNode
         $innerHTML = '';
         $children  = $this->node->childNodes;
         foreach ($children as $child) {
-            $innerHTML .= $child->ownerDocument->saveXML($child);
+            $innerHTML .= $child->ownerDocument->saveXML($child,LIBXML_NOEMPTYTAG);
         }
 
         return $innerHTML;

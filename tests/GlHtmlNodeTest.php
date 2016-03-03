@@ -27,6 +27,27 @@ use GlHtml\GlHtmlNode;
  */
 class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase {
 
+    public function testSelfClose() {
+        $html = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div><span></span></div>
+</body>
+</html>
+EOD;
+
+        $dom = new GlHtml($html);
+        $node = $dom->get("div")[0];
+        
+        $result = $node->getHtml();        
+        $htmlresult = "<span></span>";
+
+        $this->assertEquals($htmlresult,$result);
+    }
+    
     public function testDelete() {
         $html = <<<EOD
 <!DOCTYPE html>
