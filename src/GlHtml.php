@@ -21,6 +21,7 @@
 namespace GlHtml;
 
 use Symfony\Component\CssSelector\CssSelector;
+use Symfony\Component\CssSelector\CssSelectorConverter;
 
 /**
  * Class GlHtml
@@ -79,7 +80,14 @@ class GlHtml
     public function get($selector)
     {
         $xpath = new \DOMXPath($this->dom);
-        $nodes = $xpath->query(CssSelector::toXPath($selector));
+
+        if(class_exists('Symfony\Component\CssSelector\CssSelector')) {
+            $expression = CssSelector::toXPath($selector);
+        } else {
+            $converter = new CssSelectorConverter();
+            $expression = $converter->toXPath($selector);
+        }
+        $nodes = $xpath->query($expression);
 
         $glnodes = [];
         foreach ($nodes as $node) {
