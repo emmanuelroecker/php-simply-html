@@ -70,6 +70,13 @@ class GlHtmlNode
     }
 
     /**
+     * @return GlHtmlNode
+     */
+    public function getParent() {
+        return new GlHtmlNode($this->node->parentNode);
+    }
+    
+    /**
      * @param string $html
      */
     public

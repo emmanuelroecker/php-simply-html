@@ -44,6 +44,23 @@ class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($htmlresult,$result);
     }
     
+    public function testRemplaceMeParent() {
+        $html = "<!DOCTYPE html><html><head></head><body><div><span><div></div></span></div></body></html>";
+        $htmlresult = "<!DOCTYPE html><html><head></head><body><h1></h1></body></html>";
+
+        $dom = new GlHtml($html);
+        $node = $dom->get("span")[0];
+
+        $node->getParent()->replaceMe("<h1></h1>");
+
+        $result = $dom->html();
+
+        $htmlresult = str_replace(["\n","\r"],'',$htmlresult);
+        $result = str_replace(["\n","\r"],'',$result);
+
+        $this->assertEquals($htmlresult,$result);
+    }
+    
     public function testsetAttributes() {
         $html = "<!DOCTYPE html><html><head></head><body><div><span><div></div></span></div></body></html>";
         $htmlresult = '<!DOCTYPE html><html><head></head><body><div><span id="test"><div></div></span></div></body></html>';
