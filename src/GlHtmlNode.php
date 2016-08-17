@@ -78,7 +78,6 @@ class GlHtmlNode
     ) {
         $frag = $this->node->ownerDocument->createDocumentFragment();
         $frag->appendXML($html);
-        //$this->node->parentNode->parentNode->replaceChild($frag, $this->node->parentNode);
         $this->node->parentNode->replaceChild($frag, $this->node);
     }
 
