@@ -55,6 +55,9 @@ $style = '<link href="solver.css" type="text/css" rel="stylesheet"></link>';
 //add the new style tag
 $dom->get("head")[0]->add($style);
 
+//replace a node
+$dom->get("span")[0]->replaceMe("<h1></h1>");
+
 //write result in a new html file
 file_put_contents("result.html",$dom->html());
 ```

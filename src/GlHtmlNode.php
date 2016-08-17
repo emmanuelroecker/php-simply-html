@@ -78,7 +78,8 @@ class GlHtmlNode
     ) {
         $frag = $this->node->ownerDocument->createDocumentFragment();
         $frag->appendXML($html);
-        $this->node->parentNode->parentNode->replaceChild($frag, $this->node->parentNode);
+        //$this->node->parentNode->parentNode->replaceChild($frag, $this->node->parentNode);
+        $this->node->parentNode->replaceChild($frag, $this->node);
     }
 
     /**
@@ -161,7 +162,7 @@ class GlHtmlNode
         $innerHTML = '';
         $children  = $this->node->childNodes;
         foreach ($children as $child) {
-            $innerHTML .= $child->ownerDocument->saveXML($child,LIBXML_NOEMPTYTAG);
+            $innerHTML .= $child->ownerDocument->saveXML($child, LIBXML_NOEMPTYTAG);
         }
 
         return $innerHTML;

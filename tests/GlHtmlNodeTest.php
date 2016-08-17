@@ -27,6 +27,40 @@ use GlHtml\GlHtmlNode;
  */
 class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase {
 
+    public function testReplaceMe() {
+        $html = "<!DOCTYPE html><html><head></head><body><div><span><div></div></span></div></body></html>";
+        $htmlresult = "<!DOCTYPE html><html><head></head><body><div><h1></h1></div></body></html>";
+    
+        $dom = new GlHtml($html);
+        $node = $dom->get("span")[0];
+        
+        $node->replaceMe("<h1></h1>");
+        
+        $result = $dom->html();
+        
+        $htmlresult = str_replace(["\n","\r"],'',$htmlresult);
+        $result = str_replace(["\n","\r"],'',$result);
+        
+        $this->assertEquals($htmlresult,$result);
+    }
+    
+    public function testsetAttributes() {
+        $html = "<!DOCTYPE html><html><head></head><body><div><span><div></div></span></div></body></html>";
+        $htmlresult = '<!DOCTYPE html><html><head></head><body><div><span id="test"><div></div></span></div></body></html>';
+
+        $dom = new GlHtml($html);
+        $node = $dom->get("span")[0];
+
+        $node->setAttributes(['id' => 'test']);
+        
+        $result = $dom->html();
+
+        $htmlresult = str_replace(["\n","\r"],'',$htmlresult);
+        $result = str_replace(["\n","\r"],'',$result);
+
+        $this->assertEquals($htmlresult,$result);
+    }
+    
     public function testSelfClose() {
         $html = <<<EOD
 <!DOCTYPE html>

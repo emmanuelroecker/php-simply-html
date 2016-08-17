@@ -62,7 +62,7 @@ class GlHtml
      *
      * @return string the fixed text
      */
-    static function fixNewlines($text)
+    static private function fixNewlines($text)
     {
         $text = str_replace("\r\n", "\n", $text);
         $text = str_replace("\r", "\n", $text);
@@ -81,10 +81,10 @@ class GlHtml
     {
         $xpath = new \DOMXPath($this->dom);
 
-        if(class_exists('Symfony\Component\CssSelector\CssSelector')) {
+        if (class_exists('Symfony\Component\CssSelector\CssSelector')) {
             $expression = CssSelector::toXPath($selector);
         } else {
-            $converter = new CssSelectorConverter();
+            $converter  = new CssSelectorConverter();
             $expression = $converter->toXPath($selector);
         }
         $nodes = $xpath->query($expression);
@@ -102,14 +102,13 @@ class GlHtml
      *
      * @param string $selector
      * @param array  $attributes
-     * @param string $value
      */
-    public function set($selector, array $attributes, $value = null)
+    public function setAttributes($selector, array $attributes)
     {
         $nodes = $this->get($selector);
 
         foreach ($nodes as $node) {
-            $node->set($attributes, $value);
+            $node->setAttributes($attributes);
         }
     }
 
@@ -165,7 +164,7 @@ class GlHtml
         $links = [];
 
         $this->getLinksByTagAttribute("link", "href", $links);
-        $this->getLinksByTagAttribute("a", "href",$links);
+        $this->getLinksByTagAttribute("a", "href", $links);
         $this->getLinksByTagAttribute("script", "src", $links);
         $this->getLinksByTagAttribute("iframe", "src", $links);
         $this->getLinksByTagAttribute("img", "src", $links);

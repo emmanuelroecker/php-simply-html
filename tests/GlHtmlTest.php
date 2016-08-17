@@ -97,6 +97,23 @@ EOD;
         $this->assertEquals("text 1", $abstract);
     }
 
+    public function testSetAttributes()
+    {
+        $html = "<!DOCTYPE html><html><head></head><body><div><span></span></div><div><span></span></div></body></html>";
+        $htmlresult = '<!DOCTYPE html><html><head></head><body><div><span class="test"></span></div><div><span class="test"></span></div></body></html>';
+
+        $dom = new GlHtml($html);
+        $dom->setAttributes("span",['class' => 'test']);
+        
+        $result = $dom->html();
+
+        $htmlresult = str_replace(["\n","\r"],'',$htmlresult);
+        $result = str_replace(["\n","\r"],'',$result);
+
+        $this->assertEquals($htmlresult,$result);
+
+    }
+    
     public function testGetSentences()
     {
         $html = <<<EOD
