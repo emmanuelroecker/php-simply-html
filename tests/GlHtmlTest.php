@@ -72,6 +72,17 @@ EOD;
         $this->assertEquals(1, $summary[3]->getLevel());
     }
 
+    public function testRecursiveHtml2() 
+    {
+        $html = file_get_contents(__DIR__ . '/testsummary.html');
+        
+        $dom = new GlHtml($html);
+        $summary = $dom->getSummary();
+        
+        $this->assertEquals("Compatibilité", $summary[10]->getNode()->getText());
+        $this->assertEquals(2, $summary[10]->getLevel());
+    }
+    
     public function testDiv()
     {
         $html    = <<<EOD
