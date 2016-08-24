@@ -118,6 +118,11 @@ $dom = new GlHtml($html);
 $summary = $dom->getSummary();
 
 echo $summary[0]->getNode()->getText() . ' ' . $summary[0]->getLevel();
+
+/* 
+  extract html headings tree
+*/
+$summaryTree = $dom->getSummaryTree();
 ```
 
 ## Running Tests
