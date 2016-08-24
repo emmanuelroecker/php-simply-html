@@ -254,4 +254,53 @@ class GlHtml
 
         return $summary;
     }
+
+    private function convertHToTree(
+        &$start,
+        $summary,
+        array &$summaryTree
+    ) {
+        $end    = count($summary);
+        $number = 1;
+        while ($start < $end) {
+            $text = $summary[$start]->getNode()->getText();
+            $id   = $summary[$start]->getNode()->getAttribute('id');
+
+            $summaryTree[$text] = ['id' => $id, 'children' => []];
+            if (($start + 1) < $end) {
+                $currentLevel = $summary[$start]->getLevel();
+                $nextLevel    = $summary[$start + 1]->getLevel();
+                if ($nextLevel > $currentLevel) {
+                    $start++;
+                    $diff = $this->convertHToTree(
+                         $start,
+                             $summary,
+                             $summaryTree[$text]['children']
+                    );
+                    if ($diff > 0) {
+                        return $diff - 1;
+                    }
+                } else {
+                    if ($nextLevel < $currentLevel) {
+                        return ($currentLevel - $nextLevel - 1);
+                    }
+                }
+            }
+            $number++;
+            $start++;
+        }
+        
+        return 0;
+    }
+
+    public function getSummaryTree()
+    {
+        $summary = $this->getSummary();
+        $start       = 0;
+        $summaryTree = [];
+        $this->convertHToTree($start, $summary, $summaryTree);
+        reset($summaryTree); //reset array pointer
+        
+        return $summaryTree;
+    }
 }

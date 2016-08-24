@@ -71,16 +71,18 @@ EOD;
         $this->assertEquals("subtitle1-2-1", $summary[2]->getNode()->getText());
         $this->assertEquals(1, $summary[3]->getLevel());
     }
-
-    public function testRecursiveHtml2() 
+    
+    public function testHtmlSummaryTree()
     {
+
         $html = file_get_contents(__DIR__ . '/testsummary.html');
-        
+
         $dom = new GlHtml($html);
-        $summary = $dom->getSummary();
+        $summary = $dom->getSummaryTree();
+    
+        $expected = unserialize(file_get_contents(__DIR__ . '/expectedSummaryTree.serialize'));
         
-        $this->assertEquals("Compatibilité", $summary[10]->getNode()->getText());
-        $this->assertEquals(2, $summary[10]->getLevel());
+        $this->assertEquals($expected,$summary);
     }
     
     public function testDiv()
