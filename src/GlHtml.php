@@ -44,7 +44,7 @@ class GlHtml
      */
     public function __construct($html)
     {
-        $html      = static::fixNewlines($html);
+        $html      = self::fixNewlines($html);
         $this->dom = new \DOMDocument();
 
         $libxml_previous_state = libxml_use_internal_errors(true); //disable warnings
@@ -62,7 +62,7 @@ class GlHtml
      *
      * @return string the fixed text
      */
-    static private function fixNewlines($text)
+    private static function fixNewlines($text)
     {
         $text = str_replace("\r\n", "\n", $text);
         $text = str_replace("\r", "\n", $text);

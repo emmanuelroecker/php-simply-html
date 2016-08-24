@@ -143,7 +143,7 @@ class GlHtmlNode
     {
         $sentences = [];
         $sentence  = "";
-        static::iterateSentencesOverNode($this->node, $sentence, $sentences);
+        self::iterateSentencesOverNode($this->node, $sentence, $sentences);
 
         $sentence = trim($sentence);
         if (strlen($sentence) > 0) {
@@ -257,7 +257,7 @@ class GlHtmlNode
 
         $childs = $node->childNodes;
         foreach ($childs as $child) {
-            static::iterateSentencesOverNode($child, $sentence, $sentences);
+            self::iterateSentencesOverNode($child, $sentence, $sentences);
         }
 
         switch ($name) {
