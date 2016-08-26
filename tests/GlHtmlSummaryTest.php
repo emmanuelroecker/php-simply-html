@@ -19,7 +19,6 @@
 
 namespace GlHtml\Tests;
 
-use GlHtml\GlHtml;
 use GlHtml\GlHtmlNode;
 use GlHtml\GlHtmlSummary;
 
