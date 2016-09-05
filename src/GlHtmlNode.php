@@ -72,10 +72,11 @@ class GlHtmlNode
     /**
      * @return GlHtmlNode
      */
-    public function getParent() {
+    public function getParent()
+    {
         return new GlHtmlNode($this->node->parentNode);
     }
-    
+
     /**
      * @param string $html
      */
@@ -112,6 +113,24 @@ class GlHtmlNode
     public function getName()
     {
         return strtolower($this->node->nodeName);
+    }
+
+    /**
+     * @param array $hasAttributesList
+     *
+     * @return bool
+     */
+    public function hasAttributes(array $hasAttributesList)
+    {
+        $attributes = $this->node->attributes;
+
+        foreach ($attributes as $name => $attrNode) {
+            if (in_array($name, $hasAttributesList)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

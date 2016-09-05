@@ -183,6 +183,21 @@ class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($htmlresult, $result);
     }
 
+    public function testhasAttributes()
+    {
+        $html       = '<!DOCTYPE html><html><head></head><body><div><span data-original="test"><div class="tortue" nolazyload></div></span></div></body></html>';
+        
+        $dom = new GlHtml($html);
+        $node = $dom->get("span")[0];
+        
+        $this->assertEquals($node->hasAttributes(['data-original','nolazyload']), true);
+        
+        $node = $dom->get(".tortue")[0];
+        
+        $this->assertEquals($node->hasAttributes(['nolazyload']), true);
+        $this->assertEquals($node->hasAttributes(['nolazload']), false);        
+    }
+    
     public function testsetAttributes()
     {
         $html       = "<!DOCTYPE html><html><head></head><body><div><span><div></div></span></div></body></html>";
