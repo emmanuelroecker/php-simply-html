@@ -156,18 +156,25 @@ class GlHtml
 
     /**
      * @param bool $all if true get url in text and params
+     * @param array $tagAttributes ['link' => 'href']
      *
      * @return array
      */
-    public function getLinks($all = false)
+    public function getLinks($tagAttributes = null, $all = false)
     {
         $links = [];
 
-        $this->getLinksByTagAttribute("link", "href", $links);
-        $this->getLinksByTagAttribute("a", "href", $links);
-        $this->getLinksByTagAttribute("script", "src", $links);
-        $this->getLinksByTagAttribute("iframe", "src", $links);
-        $this->getLinksByTagAttribute("img", "src", $links);
+        if ($tagAttributes) {
+            foreach ($tagAttributes as $tag => $attribute) {
+                $this->getLinksByTagAttribute($tag, $attribute, $links);
+            }
+        } else {
+            $this->getLinksByTagAttribute("link", "href", $links);
+            $this->getLinksByTagAttribute("a", "href", $links);
+            $this->getLinksByTagAttribute("script", "src", $links);
+            $this->getLinksByTagAttribute("iframe", "src", $links);
+            $this->getLinksByTagAttribute("img", "src", $links);
+        }
 
         //get all string started with http
         $regexUrl = '/[">\s]+((http|https|ftp|ftps)\:\/\/(.*?))["<\s]+/';
