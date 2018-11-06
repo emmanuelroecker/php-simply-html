@@ -2,7 +2,7 @@
 /**
  * Main Class to manipulate dom
  *
- * PHP version 5.4
+ * PHP version 5.5
  *
  * @category  GLICER
  * @package   GlHtml
@@ -273,9 +273,9 @@ class GlHtml
                 if ($nextLevel > $currentLevel) {
                     $start++;
                     $diff = $this->convertHToTree(
-                         $start,
-                             $summary,
-                             $summaryTree[$text]['children']
+                        $start,
+                        $summary,
+                        $summaryTree[$text]['children']
                     );
                     if ($diff > 0) {
                         return $diff - 1;
@@ -289,7 +289,7 @@ class GlHtml
             $number++;
             $start++;
         }
-        
+
         return 0;
     }
 
@@ -300,7 +300,7 @@ class GlHtml
         $summaryTree = [];
         $this->convertHToTree($start, $summary, $summaryTree);
         reset($summaryTree); //reset array pointer
-        
+
         return $summaryTree;
     }
 }
