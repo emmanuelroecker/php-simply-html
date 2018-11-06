@@ -2,7 +2,7 @@
 /**
  * Extend \DomNode
  *
- * PHP version 5.4
+ * PHP version 5.5
  *
  * @category  GLICER
  * @package   GlHtml
@@ -60,8 +60,7 @@ class GlHtmlNode
     /**
      * @param string $html
      */
-    public
-    function add(
+    public function add(
         $html
     ) {
         $frag = $this->node->ownerDocument->createDocumentFragment();
@@ -80,8 +79,7 @@ class GlHtmlNode
     /**
      * @param string $html
      */
-    public
-    function replaceMe(
+    public function replaceMe(
         $html
     ) {
         $frag = $this->node->ownerDocument->createDocumentFragment();
@@ -138,8 +136,7 @@ class GlHtmlNode
      *
      * @return string
      */
-    public
-    function getAttribute(
+    public function getAttribute(
         $name
     ) {
         return $this->node->getAttribute($name);
@@ -148,8 +145,7 @@ class GlHtmlNode
     /**
      * @return string
      */
-    public
-    function getText()
+    public function getText()
     {
         return $this->node->nodeValue;
     }
@@ -172,8 +168,7 @@ class GlHtmlNode
         return $sentences;
     }
 
-    public
-    function delete()
+    public function delete()
     {
         $this->node->parentNode->removeChild($this->node);
     }
@@ -181,8 +176,7 @@ class GlHtmlNode
     /**
      * @return string
      */
-    public
-    function getHtml()
+    public function getHtml()
     {
         $innerHTML = '';
         $children  = $this->node->childNodes;

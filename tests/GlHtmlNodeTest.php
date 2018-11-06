@@ -2,7 +2,7 @@
 /**
  * Test GlHtmlNode
  *
- * PHP version 5.4
+ * PHP version 5.5
  *
  * @category  GLICER
  * @package   GlHtml\Tests
@@ -21,11 +21,12 @@ namespace GlHtml\Tests;
 
 use GlHtml\GlHtml;
 use GlHtml\GlHtmlNode;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \GlHtml\GlHtmlNode
  */
-class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase
+class GlHtmlNodeTest extends TestCase
 {
 
     private function removeCR($html)
@@ -89,7 +90,21 @@ class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDOMNode()
     {
+        $html = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div><p>test</p></div>
+</body>
+</html>
+EOD;
+        $dom = new GlHtml($html);
+        $node = $dom->get("p")[0];
 
+        $this->assertInstanceOf(\DOMNode::class, $node->getDOMNode());
+        $this->assertEquals('p', $node->getName());
     }
 
     public function testGetName()
@@ -125,7 +140,7 @@ class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase
     public function testGetSentences()
     {
         $html = '<!DOCTYPE html><html><head></head><body><div>texte1<div id="test">texte2<h1>texte3</h1>texte4</div></div></body></html>';
-    
+
         $dom  = new GlHtml($html);
         $node = $dom->get("#test")[0];
 
@@ -186,18 +201,18 @@ class GlHtmlNodeTest extends \PHPUnit_Framework_TestCase
     public function testhasAttributes()
     {
         $html       = '<!DOCTYPE html><html><head></head><body><div><span data-original="test"><div class="tortue" nolazyload></div></span></div></body></html>';
-        
+
         $dom = new GlHtml($html);
         $node = $dom->get("span")[0];
-        
+
         $this->assertEquals($node->hasAttributes(['data-original','nolazyload']), true);
-        
+
         $node = $dom->get(".tortue")[0];
-        
+
         $this->assertEquals($node->hasAttributes(['nolazyload']), true);
-        $this->assertEquals($node->hasAttributes(['nolazload']), false);        
+        $this->assertEquals($node->hasAttributes(['nolazload']), false);
     }
-    
+
     public function testsetAttributes()
     {
         $html       = "<!DOCTYPE html><html><head></head><body><div><span><div></div></span></div></body></html>";
@@ -272,4 +287,4 @@ EOD;
         $htmlresult = str_replace([' ', "\n", "\t", "\r"], '', $htmlresult);
         $this->assertEquals($htmlresult, $result);
     }
-} 
+}

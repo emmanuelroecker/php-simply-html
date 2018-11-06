@@ -2,7 +2,7 @@
 /**
  * Test GlHtml
  *
- * PHP version 5.4
+ * PHP version 5.5
  *
  * @category  GLICER
  * @package   GlHtml\Tests
@@ -19,11 +19,12 @@
 namespace GlHtml\Tests;
 
 use GlHtml\GlHtml;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \GlHtml\GlHtml
  */
-class GlHtmlTest extends \PHPUnit_Framework_TestCase
+class GlHtmlTest extends TestCase
 {
 
     public function testHtml()
@@ -43,6 +44,42 @@ EOD;
         $node = $dom->get("p")[0];
 
         $this->assertEquals("test", $node->getText());
+    }
+
+    public function testGetText()
+    {
+        $html = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div><p>test</p></div>
+</body>
+</html>
+EOD;
+        $dom = new GlHtml($html);
+
+        $this->assertContains("test", $dom->getText());
+    }
+
+    public function testDelete()
+    {
+
+        $html = <<<EOD
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div><p>test</p></div>
+</body>
+</html>
+EOD;
+        $dom = new GlHtml($html);
+        $dom->delete('p');
+
+        $this->assertNotContains("test", $dom->getText());
     }
 
     public function testRecursiveHtml()
@@ -71,7 +108,7 @@ EOD;
         $this->assertEquals("subtitle1-2-1", $summary[2]->getNode()->getText());
         $this->assertEquals(1, $summary[3]->getLevel());
     }
-    
+
     public function testHtmlSummaryTree()
     {
 
@@ -79,12 +116,12 @@ EOD;
 
         $dom = new GlHtml($html);
         $summary = $dom->getSummaryTree();
-    
+
         $expected = unserialize(file_get_contents(__DIR__ . '/expectedSummaryTree.serialize'));
-        
+
         $this->assertEquals($expected,$summary);
     }
-    
+
     public function testDiv()
     {
         $html    = <<<EOD
@@ -117,7 +154,7 @@ EOD;
 
         $dom = new GlHtml($html);
         $dom->setAttributes("span",['class' => 'test']);
-        
+
         $result = $dom->html();
 
         $htmlresult = str_replace(["\n","\r"],'',$htmlresult);
@@ -126,7 +163,7 @@ EOD;
         $this->assertEquals($htmlresult,$result);
 
     }
-    
+
     public function testGetSentences()
     {
         $html = <<<EOD
@@ -467,4 +504,4 @@ EOD;
 
         $this->assertEquals($expected, $links);
     }
-} 
+}

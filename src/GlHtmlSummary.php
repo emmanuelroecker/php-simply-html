@@ -2,7 +2,7 @@
 /**
  * Extend \DomNode
  *
- * PHP version 5.4
+ * PHP version 5.5
  *
  * @category  GLICER
  * @package   GlHtml
@@ -23,7 +23,8 @@ namespace GlHtml;
  * Class GlHtmlSummary
  * @package GlHtml
  */
-class GlHtmlSummary {
+class GlHtmlSummary
+{
 
     /**
      * @var int
@@ -35,7 +36,8 @@ class GlHtmlSummary {
      */
     private $node;
 
-    public function __construct(GlHtmlNode $node,$level) {
+    public function __construct(GlHtmlNode $node, $level)
+    {
         $this->node = $node;
         $this->level = $level;
     }
@@ -43,15 +45,16 @@ class GlHtmlSummary {
     /**
      * @return GlHtmlNode
      */
-    public function getNode() {
+    public function getNode()
+    {
         return $this->node;
     }
 
     /**
      * @return int
      */
-    public function getLevel() {
+    public function getLevel()
+    {
         return $this->level;
     }
-
 }

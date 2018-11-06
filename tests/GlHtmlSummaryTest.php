@@ -2,7 +2,7 @@
 /**
  * Test GlHtmlNode
  *
- * PHP version 5.4
+ * PHP version 5.5
  *
  * @category  GLICER
  * @package   GlHtml\Tests
@@ -21,18 +21,19 @@ namespace GlHtml\Tests;
 
 use GlHtml\GlHtmlNode;
 use GlHtml\GlHtmlSummary;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \GlHtml\GlHtmlNode
+ * @covers \GlHtml\GlHtmlSummary
  */
-class GlHtmlSummaryTest extends \PHPUnit_Framework_TestCase
+class GlHtmlSummaryTest extends TestCase
 {
-    public function testGetter() {
-        
+    public function testGetter()
+    {
         $node = new GlHtmlNode(new \DOMNode());
         $summarynode = new GlHtmlSummary($node,42);
-        
-        $this->assertEquals($node,$summarynode->getNode());
+
+        $this->assertEquals($node, $summarynode->getNode());
         $this->assertEquals(42, $summarynode->getLevel());
     }
-} 
+}
